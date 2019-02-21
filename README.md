@@ -9,6 +9,7 @@
 A featureful virtualenv tool for Emacs. Emulates
 much of the functionality of Doug Hellmann's
 [virtualenvwrapper](https://bitbucket.org/dhellmann/virtualenvwrapper/).
+;; Based on https://github.com/porterjamesj/virtualenvwrapper.el project
 
 ## Features
 

@@ -1,10 +1,10 @@
 ;;; virtualenvwrapper.el --- a featureful virtualenv tool for Emacs
 
-;; Copyright (C) 2013 - 2015 James J Porter and [contributors](https://github.com/porterjamesj/virtualenvwrapper.el/graphs/contributors)
+;; Copyright (C) 2018 - 2019 oucb and [contributors](https://github.com/oucb/virtualenvwrapper.el/graphs/contributors)
 
-;; Author: James J Porter <porterjamesj@gmail.com>
-;; URL: http://github.com/porterjamesj/virtualenvwrapper.el
-;; Version: 20151123
+;; Author: oucb <ouchbx@gmail.com>
+;; URL: http://github.com/oucb/virtualenvwrapper.el
+;; Version: 20190221
 ;; Keywords: python, virtualenv, virtualenvwrapper
 ;; Package-Requires: ((dash "1.5.0") (s "1.6.1"))
 
@@ -13,8 +13,9 @@
 ;; A featureful virtualenv tool for Emacs. Emulates much of the
 ;; functionality of Doug Hellmann's
 ;; [virtualenvwrapper](https://bitbucket.org/dhellmann/virtualenvwrapper/)
+;; Based on https://github.com/porterjamesj/virtualenvwrapper.el project
 ;; See documentation at
-;; https://github.com/porterjamesj/virtualenvwrapper.el for more details.
+;; https://github.com/oucb/virtualenvwrapper.el for more details.
 
 ;;; Code:
 
@@ -62,6 +63,8 @@ enviornment variable in the original virtualenvwrapper"
   :group 'virtualenvwrapper)
 
 
+
+
 ;; hooks
 
 (defvar venv-premkvirtualenv-hook nil
@@ -79,7 +82,7 @@ enviornment variable in the original virtualenvwrapper"
 (defvar venv-preactivate-hook nil
   "Hook run before a virtualenv is activated.")
 
-(defvar venv-postactivate-hook nil
+(defvar venv-postactivate-hook 'install-style-check-package
   "Hook run after a virtualenv is activated.")
 
 (defvar venv-predeactivate-hook nil
@@ -104,6 +107,15 @@ enviornment variable in the original virtualenvwrapper"
 (defvar venv-executables-dir
   (if (eq system-type 'windows-nt) "Scripts" "bin")
   "The name of the directory containing executables. It is system dependent.")
+
+
+;;;###install packages
+(defun install-style-check-package ()
+  (setq pip-list-packages (shell-command-to-string "pip list"))
+  (if (string-match "\\(flake8\\)" pip-list-packages)
+      (shell-command "pip install anaconda-mode flake8 flake8-todo
+flake8-tabs flake8-quotes flake8-import-order pep8-naming")))
+
 
 ;;;###autoload
 (defun venv-projectile-auto-workon ()
@@ -574,5 +586,5 @@ virtualenvwrapper.el."
                             "cdvirtualenv" "cpvirtualenv"))
   (message "Eshell virtualenv support initialized."))
 
-(provide 'virtualenvwrapper)
+(provide 'virtualenvwrapper-flake8)
 ;;; virtualenvwrapper.el ends here
