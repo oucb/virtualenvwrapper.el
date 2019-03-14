@@ -112,9 +112,8 @@ enviornment variable in the original virtualenvwrapper"
 ;;;###install packages
 (defun install-style-check-package ()
   (setq pip-list-packages (shell-command-to-string "pip list"))
-  (if (string-match "\\(flake8\\)" pip-list-packages)
-      (shell-command "pip install anaconda-mode flake8 flake8-todo
-flake8-tabs flake8-quotes flake8-import-order pep8-naming")))
+  (if (not (string-match "\\(flake8\\)" pip-list-packages))
+      (shell-command "pip install anaconda-mode ipython flake8 flake8-todo flake8-tabs flake8-quotes flake8-import-order pep8-naming")))
 
 
 ;;;###autoload
