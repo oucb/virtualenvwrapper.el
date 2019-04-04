@@ -109,11 +109,11 @@ enviornment variable in the original virtualenvwrapper"
   "The name of the directory containing executables. It is system dependent.")
 
 
-;;;###install packages
+;; install packages
 (defun install-style-check-package ()
   (setq pip-list-packages (shell-command-to-string "pip list"))
   (if (not (string-match "\\(flake8\\)" pip-list-packages))
-      (shell-command "pip install anaconda-mode ipython flake8 flake8-todo flake8-tabs flake8-quotes flake8-import-order pep8-naming")))
+      (shell-command "pip install anaconda-mode flake8 ipython flake8-bugbear flake8-todo flake8-tabs flake8-quotes flake8-import-order pep8-naming flake8-mypy flake8-comprehensions ipdb")))
 
 
 ;;;###autoload
