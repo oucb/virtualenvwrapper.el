@@ -585,5 +585,5 @@ virtualenvwrapper.el."
                             "cdvirtualenv" "cpvirtualenv"))
   (message "Eshell virtualenv support initialized."))
 
-(provide 'virtualenvwrapper-flake8)
+(provide 'virtualenvwrapper)
 ;;; virtualenvwrapper.el ends here
